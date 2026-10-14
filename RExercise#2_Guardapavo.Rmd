@@ -1,0 +1,138 @@
+---
+title: "RExercise#2_Guardapavo.Rmd"
+author: "Jonas Benjamin S. Guardapavo"
+date: "2026-09-30"
+output: html_document
+---
+## Part A Arithmetic Operations
+```{r}
+a <- 17
+b <- 5
+
+a + b
+a - b
+a * b
+a / b
+
+a%%b
+a%/%b
+
+2^10
+```
+
+Question #1: 
+The 17 / 5 gives the exact floating point quotient. While 17 %/% 5 gives the integer quotient, like how many 5 fits into 17 which is 3. The 17 %% 5 on the other hand, gives the remainder which is 2.
+
+Questions #2:
+I was correct 
+
+## Part B Basic Data Types
+
+```{r}
+x <- 42
+y <- 42L        
+z <- "42"
+w <- TRUE
+v <- 3 + 2i
+
+typeof(x)
+typeof(y)
+typeof(z)
+typeof(w)
+typeof(v)
+
+class(x)
+class(y)
+class(z)
+class(w)
+class(v)
+
+mode(x)
+mode(y)
+mode(z)
+mode(w)
+mode(v)
+
+```
+
+Question #3: 
+It holds the same mathematical value but its different because the 42 is stored as a decimal number. While 42L is stored as a whole number.
+
+Questions #4:
+Yes
+
+## Part C Type Conversion
+
+```{r}
+num_string <- "123"
+num_val <- as.numeric(num_string)
+
+typeof(num_val)
+class(num_val)
+mode(num_val) 
+
+as.logical(0) 
+as.logical(1) 
+
+as.numeric(bad_string)
+```
+
+Question #5:
+So that the code won't crash, instead it gives a warning because R is built for large datasets
+
+The risks is that you will have missing data and non accurate calculations
+
+Question #6:
+The as.logical(2) and as.logical(-1) will produce 2 TRUE
+
+I learned that if I type 0, it produces FALSE and any none zero automatically produces TRUE
+
+## Part D Strings, paste(), and paste0()
+
+```{r}
+first_name <- "Jonas"
+last_name <- "Guardapavo"
+
+print(first_name)
+print(last_name)
+cat(first_name, last_name, "\n")
+
+full_name_paste  <- paste(first_name, last_name)
+full_name_paste0 <- paste0(first_name, last_name)
+
+print(full_name_paste)
+print(full_name_paste0)
+
+paste(first_name, last_name, sep = "-")
+
+full_name <- paste(first_name, last_name)
+paste0(full_name, " is ", age, " years old.")
+
+```
+
+
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
