@@ -105,34 +105,41 @@ print(full_name_paste0)
 
 paste(first_name, last_name, sep = "-")
 
+age <- 19
+
 full_name <- paste(first_name, last_name)
 paste0(full_name, " is ", age, " years old.")
 
 ```
 
+Question #7: paste() and paste0() produced different results for the same two strings. Explain exactly why, referencing what each function does by default.
 
+Answer: They are not the same, paste() automatically puts a space between words, just like pressing the space button. While the paste0() doesn't leave a space at all.
 
+Question #8:
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+Answer:  Nope, there was no error, paste0() automatically changes numbers into words before they are put together.
+
+```{r}
+# TODO: Predict, then test: what is the result of "5" + 5 in R?
+# Run it and read the error message carefully.
+"5" + 5
+
+# TODO: Now fix the code above so that "5" + 5 correctly evaluates to 10
+# using an appropriate conversion function.
+as.numeric("5") + 5
+
 ```
 
-## R Markdown
+Question #9: Some programming languages automatically convert "5" + 5 into 10 without an error. R does not.
+Based on what you’ve learned about R’s data types in this lab, why do you think R requires an explicit conversion instead of guessing what the programmer meant?
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+Answers: R doesn't guess because it can cause mistakes, if R guessed, it wouldn't know if  I do something. R language wants the user to be clear so that the user will always get the exact answer intended.
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
 
-```{r cars}
-summary(cars)
-```
+Question #10: Suppose a classmate writes a script that reads a column of “numbers” from a text file. The column looks numeric, but when they try sum() on it, R throws an error. Based on everything in this lab (types, typeof()/class()/mode(), conversion, warnings), write a short paragraph explaining what likely went wrong and the steps you’d take to diagnose and fix it.
 
-## Including Plots
+Answers: The column looks like number, but R reads it as a character. We can fix this by using class() or str() on the column to confirm the data type. If it says "character" then use as.numeric() to convert the whole column into real numbers. Then sum() will work.
 
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+Conclusion : 
+R is good for distinguishing the different data types, it requires specific formats to perform mathematical operations and strings. Like checking variables with typeof() or class() that allows to diagnose unexpected data types, such as number stored as text, before running calculations. Using these tools guarantees that your code is runs correctly and therefore it produces accurate and predictable results.
