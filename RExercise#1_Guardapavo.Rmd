@@ -1,0 +1,47 @@
+
+Name: Jonas Benjamin S. Guardapavo
+
+```{r}
+#Introduction: 
+# Answers: I expect that cars with few cylinder will have high fuel efficiency than cars with more cylinders. It depends on engine size and how many cylinders are used. If there are more cylinders then the average fuel efficiency should decrease.
+
+# The mtcars dataset is built into R -- no import needed.
+data(mtcars)
+
+# Display the first 6 rows of mtcars
+head(mtcars)
+
+# Show the structure (column types) of mtcars
+str(mtcars)
+
+# Question: How many observations (rows) and variables (columns) does mtcars have?
+# Answer: The mtcars dataset has 32 observations and 11 variables.
+
+# Get summary statistics for the whole dataset
+summary(mtcars)
+
+# Calculate the average mpg for each value of cyl (4, 6, 8 cylinders)
+aggregate(mpg ~ cyl, data = mtcars, FUN = mean)
+
+# Question: Which cylinder group has the highest average mpg? Does this match your prediction above?
+
+# Answer: The 4-cylinder group has the highest average fuel efficiency at 26.66 mpg. Yes, this matches my prediction that cars with fewer cylinders get better fuel efficiency.
+
+# Create a scatterplot of mpg (y-axis) vs. wt (x-axis)
+plot(mtcars$wt, mtcars$mpg,
+     xlab = "Weight (1000 lbs)", ylab = "Miles per Gallon",
+     main = "Fuel Efficiency vs. Weight")
+
+# Create a boxplot of mpg grouped by cyl
+boxplot(mpg ~ cyl, data = mtcars,
+        xlab = "Number of Cylinders", ylab = "Miles per Gallon",
+        main = "Fuel Efficiency by Cylinder Count")
+
+# Question: Based on the scatterplot, describe the relationship between a car’s weight and its fuel efficiency.
+# Answer: The scatterplot shows a strong negative relationship between a car's weight and its fuel efficiency. As weight increases, miles per gallon consistently decreases, meaning heavier cars are less fuel-efficient.
+
+# Conclusion :
+#In this activity, I learned that a car's weight and cylinder count directly affect its fuel efficiency. Heavier vehicles and cars with 8 cylinders use the most gas and get the lowest miles per gallon. On the other hand, lighter vehicles with 4 cylinders achieve the highest gas mileage.
+
+```
+
