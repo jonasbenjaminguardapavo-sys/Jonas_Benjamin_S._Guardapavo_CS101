@@ -1,0 +1,146 @@
+Part A — Creating Matrices
+
+```{r}
+# TODO: Create a 3x3 matrix called m1 containing the numbers 1 to 9,
+# using matrix(1:9, nrow = 3, ncol = 3)
+# Print m1
+m1 <- matrix(1:9, nrow = 3, ncol = 3)
+m1
+
+# TODO: Create a second 3x3 matrix called m2 with the SAME numbers 1:9,
+# but this time add the argument byrow = TRUE
+# Print m2 and compare it to m1
+m2 <- matrix(1:9, nrow = 3, ncol = 3, byrow = TRUE)
+m2
+
+scores <- matrix(c(88, 92, 79, 95, 84, 90), nrow = 2, ncol = 3, byrow = TRUE)
+rownames(scores) <- c("Quiz1", "Quiz2")
+colnames(scores) <- c("Ana", "Ben", "Cid")
+
+# TODO: Print scores and confirm the row/column names were applied
+scores
+```
+
+Question 1: The byrow = TRUE fills the matrix row by row horizontally, instead of column by column vertically.
+
+Question #2: If I execute matrix(1:8, nrow = 3, ncol = 3), it creates the 3x3 matric using the recycling rule to fill the missing slots with the first element of the vector.
+
+Part B — Subsetting Matrices
+
+```{r}
+# Using scores from Part A:
+# TODO: Access the single value in row 1, column 2 using scores[1, 2]
+scores[1, 2]
+
+# TODO: Access the entire first row using scores[1, ]
+scores[1, ]
+
+# TODO: Access the entire "Ben" column using scores[, "Ben"]
+scores[, "Ben"]
+
+# TODO: Return only the values in scores that are greater than or equal
+# to 90 (hint: scores[scores >= 90] -- note the result loses its shape)
+scores[scores >= 90]
+```
+
+Questions #3: The code returns it as numeric, showing the it automatically drops the 2D matrix structure down to a 1D vector.
+
+Questions #4: Logical subsetting extracts individual matching values from random positions, breakin the rectangular 2D layout and removing the original row and column labels.
+
+Part C — Matrix Properties and Operations
+```{r}
+# TODO: Use dim(), nrow(), and ncol() on scores to report its dimensions
+dim(scores)
+nrow(scores)
+ncol(scores)
+
+# TODO: Use t() to transpose scores and store it as scores_t
+# Print scores_t and compare its dimensions to scores using dim()
+scores_t <- t(scores)
+scores_t
+dim(scores_t)
+
+a <- matrix(1:4, nrow = 2)
+b <- matrix(5:8, nrow = 2)
+
+# TODO: Add a and b element-wise (a + b)
+a + b
+
+# TODO: Multiply a and b element-wise (a * b)
+a * b
+
+# TODO: Perform true matrix multiplication of a and b using %*%
+# Compare this result to a * b above -- they should be different
+a %*% b
+```
+
+Question #5: Element-wise multiplication multiplies each matching positional element of matrix a directly with the corresponding positional element of matrix b. It follows a linear algebra rules.
+
+Question #6: Transposing a matrix rotates its axes across the main diagonal , turning each row original row into a column and each original column into a row. It swaps so that each data value remains correctly associated with corresponding row and column labels.
+
+Part D — cbind() and rbind()
+```{r}
+# TODO: A new student "Dex" scored 85 on Quiz1 and 91 on Quiz2.
+# Use cbind() to add a new column to scores called Dex with
+# these two values. Store the result as scores_v2 and print it.
+scores_v2 <- cbind(scores, Dex = c(85, 91))
+scores_v2
+
+# TODO: A new quiz "Quiz3" was given with scores 80, 88, 93 for
+# Ana, Ben, Cid (use only the original 3 students, not Dex).
+# Use rbind() to add this as a new row to scores. Store as scores_v3
+# and print it.
+scores_v3 <- rbind(scores, Quiz3 = c(80, 88, 93))
+scores_v3
+```
+
+Question #7: Running cbind(scores, c(85, 91, 100)) combines the data but triggers a warning. Because it requires compatible dimentions because matrices must maintain a rectangular shape with equal row lengths and column counts.
+
+Question #8: Use rbind() when doing new observations or time intervals to a dataset. For example, in a daily attendance log where column represents specific names, each new day generates a new row of attendance records that must be appended vertically to the bottom of the existing table.
+
+Part E — Arrays: Creating and Subsetting
+```{r}
+# TODO: Create a 2x3x2 array called arr using:
+# array(1:12, dim = c(2, 3, 2))
+# Print arr and observe how it displays as two separate 2x3 "slices"
+arr <- array(1:12, dim = c(2, 3, 2))
+arr
+
+# TODO: Access the element in row 1, column 2, of the SECOND layer
+# (slice) of arr, e.g. arr[1, 2, 2]
+arr[1, 2, 2]
+
+# TODO: Access the entire first layer (slice) of arr using arr[ , , 1]
+arr[, , 1]
+
+# TODO: Use dim() on arr to confirm its dimensions
+dim(arr)
+```
+
+Question #9: For dim(arr) yielding c(2, 3, 2), the first number (2) specifies the number of rows per slice, the second number (3) specifies the number of columns per slice, and the third number (2) specifies the total number of 2D matrix slices stacked along the third dimension.
+
+Questions #10: Tracking monthly weather records across multiple years (rows = weather stations, columns = weather metrics, layers = years). A single 2D matrix cannot track the third temporal dimension without flattening or overlapping data.
+
+Part F — Critical Thinking Challenge
+```{r}
+class_a <- matrix(c(85, 90, 78, 92), nrow = 2, byrow = TRUE,
+                   dimnames = list(c("S1", "S2"), c("Midterm", "Final")))
+class_b <- matrix(c(88, 84, 95, 91), nrow = 2, byrow = TRUE,
+                   dimnames = list(c("S3", "S4"), c("Midterm", "Final")))
+
+# TODO: Combine class_a and class_b into one matrix called all_students
+# using the correct bind function
+all_students <- rbind(class_a, class_b)
+all_students
+
+# TODO: From all_students, compute each student's average score across
+# Midterm and Final. Hint: rowMeans(all_students) does this in one line.
+rowMeans(all_students)
+```
+
+Question #11: rbind() was used because both classes shared identical test columns (Midterm, Final) but contained different rows of students (S1–S4).
+
+Question #12: Combine all 5 matrices in a single command using rbind(class1, class2, class3, class4, class5). Confirm with dim(), which should show 2 columns and a row count equal to the total number of students across all classes.
+
+Conclusion:
+A matrix is a two-dimensional grid composed of rows and columns, whereas an array generalizes this structure into three or more dimensions by stacking multiple matrices together. Functions like cbind() and rbind() are valuable tools for growing datasets, such as using rbind() to append new periodic entries to a time series or using cbind() to add new measured variables to existing subjects. Together, these tools provide an efficient framework for managing structured, multi-dimensional data in R.
