@@ -1,0 +1,91 @@
+Title: RExercise#9
+Name: Jonas Benjamin S. Guardapavo
+
+Part A — Creating Data Frames
+
+```{r}
+shoes <- data.frame(
+  Gender = c("Male", "Female", "Female", "Male", "Male", "Female", "Male", "Female"),
+  ShoeSize = c(10.0, 6.5, 7.0, 11.5, 11.0, 8.0, 12.0, 6.5),
+  Height = c(175, 160, 162, 180, 178, 165, 183, 158)
+)
+write.csv(shoes, "shoesize.csv", row.names = FALSE)
+
+# Then try to import the saved csv into the R environment. Display the last 5 rows.
+shoes <- read.csv("shoesize.csv")
+tail(shoes, 5)
+
+# Describe the data by showing the structures and its content.
+str(shoes)
+
+# Inspect its dimensions. How many rows? How about columns?
+dim(shoes)
+nrow(shoes)
+ncol(shoes)
+
+# Inspect by using summary(). What is the difference of the summary() from str() function?
+summary(shoes)
+
+# Create a subset by males and females with their corresponding shoe size and height. What its result? Show the R scripts.
+males <- subset(shoes, Gender == "Male")
+males
+females <- subset(shoes, Gender == "Female")
+females
+
+# Find the mean of shoe size and height of the respondents. Write the R scripts and its result.
+mean_shoe <- mean(shoes$ShoeSize)
+mean_height <- mean(shoes$Height)
+
+```
+# Is there a relationship between shoe size and height? Why?
+Answer: Yes, taller people generally have bigger shoe sizes because larger body frames need bigger feet for balance.
+
+Question #2:
+
+# A nominal variable is a categorical variable without an implied order. This means that it is impossible to say that ‘one is worth more than the other’.
+# Create factors for the gender.
+Answer:
+```{r}
+shoes$Gender <- factor(shoes$Gender)
+
+levels(shoes$Gender)
+str(shoes$Gender)
+```
+
+Question #3:
+
+# When R Markdown knits a document, it uses the folder containing the .Rmd file as the working directory — NOT whatever folder your R console happened to be in beforehand. Why do you think this design choice makes an .Rmd file’s imports more reliable and reproducible when shared with someone else?
+Answer: Rmd automatically looks inside its own folder for files. This make sharing files reliable because anyone who opens the folder can run the code without any double checking missing file paths.
+
+Question #4:
+
+# Run str(shoes) and note the type R assigned to the Gender column. Is it what you expected? Explain what could go wrong in later analysis if a column you expected to be numeric (like ShoeSize) was accidentally imported as text (character) instead — for example, because of a stray non-numeric value in the original file.
+Answer: Yes. If it is imported as text, then the math function of the program will break and displays an error. 
+
+Question #5:
+
+#Why is it good practice to check BOTH head(shoes) and tail(shoes) after importing a file, instead of just head()? What kind of import problem would head() alone fail to catch?
+Answer: It is a good practice to check both because each of them has a different function. The head() only checks the top 6 rows. If we use tail() then it lets it spot the problems at the bottom of the file, it checks if there are missing rows.
+
+Question #6:
+
+# Compute for the correlation
+```{r}
+# a. 
+# TODO: Use cor(shoes$ShoeSize, shoes$Height) to compute the correlation
+# between shoe size and height across ALL observations
+cor(shoes$ShoeSize, shoes$Height)
+
+# b.
+# TODO: Return all rows where ShoeSize is greater than or equal to 11,
+# regardless of gender
+shoes[shoes$ShoeSize >= 11, ]
+```
+
+Question #7:
+
+# Compare the mean height and mean shoe size between the female and male subsets. Describe the pattern you see.
+# Does this dataset support the idea that shoe size and height are related WITHIN each gender group, or could gender itself be an important factor you’d need to account for separately when studying that relationship?
+Answer: The pattern between the male and female is that males have higher average height and larger average shoe size then females.
+
+Gender is an important factor because males are taller and have larger feet on average, gender itself explains a large part pertaining to the difference in both height and shoe size.
