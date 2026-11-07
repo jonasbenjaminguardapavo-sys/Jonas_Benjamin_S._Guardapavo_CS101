@@ -1,0 +1,102 @@
+Name: Jonas Benjamin S. Guardapavo
+
+Part A — Creating Data Frames
+```{r}
+# Create a data frame using the Figure 1.
+# TODO: Before combining these into a data frame, confirm all six vectors
+# have the same length using length() on each one (or wrap them in c()
+# and check for yourself that every value is 20)
+
+Respondent <- 1:20
+Sex <- c(2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 1, 2)
+FathersOccupation <- c(1, 3, 3, 3, 1, 2, 3, 1, 1, 1, 3, 2, 1, 3, 3, 1, 3, 1, 2, 1)
+PersonsAtHome <- c(5, 7, 3, 8, 5, 9, 6, 7, 8, 4, 7, 5, 4, 7, 8, 8, 3, 11, 7, 6)
+SiblingsAtSchool <- c(6, 4, 4, 1, 2, 1, 5, 3, 1, 2, 3, 2, 5, 5, 2, 1, 2, 5, 3, 2)
+TypesOfHouses <- c(1, 2, 3, 1, 1, 3, 3, 1, 2, 3, 2, 3, 2, 2, 3, 3, 3, 3, 3, 2)
+
+
+length(Respondent)
+length(Sex)
+length(FathersOccupation)
+length(PersonsAtHome)
+length(SiblingsAtSchool)
+length(TypesOfHouses)
+
+# TODO: Combine all six vectors into a data frame called survey using
+# data.frame(), naming the columns: Respondent, Sex, FathersOccupation,
+# PersonsAtHome, SiblingsAtSchool, TypesOfHouses
+# Print the resulting data frame
+
+survey <- data.frame(
+  Respondent = Respondent,
+  Sex = Sex,
+  FathersOccupation = FathersOccupation,
+  PersonsAtHome = PersonsAtHome,
+  SiblingsAtSchool = SiblingsAtSchool,
+  TypesOfHouses = TypesOfHouses
+)
+
+print(survey)
+
+# a. Describe the data. Get the structure or the summary of the data.
+str(survey)
+summary(survey)
+
+# b. Check for the dimensions. How many rows and columns?
+dim(survey)
+
+# c. Create factors for Sex, Father's Occupation and Types of Houses
+survey_factored <- survey
+survey_factored$Sex <- factor(survey_factored$Sex, levels = c(1, 2), labels = c("Male", "Female"))
+survey_factored$FathersOccupation <- factor(survey_factored$FathersOccupation, levels = c(1, 2, 3), labels = c("Farmer", "Driver", "Others"))
+survey_factored$TypesOfHouses <- factor(survey_factored$TypesOfHouses, levels = c(1, 2, 3), labels = c("Wood", "Semi-Concrete", "Concrete"))
+
+str(survey_factored)
+
+# d. Get the mean for all columns.
+colMeans(survey)
+
+# e. Extract the 1st five rows and then all the columns using subsetting functions. What is the output?
+survey[1:5, ]
+
+# f. Select the variable types of houses then store the vector that results as types_houses.
+types_houses <- survey$TypesOfHouses
+types_houses
+
+# g. Select only all Males respondent that their father occupation was farmer.
+subset(survey, Sex == 1 & FathersOccupation == 1)
+
+# h. Select only all females respondent that have greater than or equal to 5 number of siblings attending school.
+subset(survey, Sex == 2 & SiblingsAtSchool >= 5)
+```
+
+Question #2: Before running data.frame(), you were asked to check that all six vectors had the same length. Why is this check necessary specifically for survey data like this, where every column represents an answer from the SAME 20 respondents?
+
+Answer: It is necessary to check it because a data frame requires all part vectors to have identical row counts to maintain structural alignment across observations.
+
+Question #3: All five survey variables (Sex through TypesOfHouses) are stored as plain numbers (1, 2, 3, …), but they don’t all mean the same kind of thing. Looking at the legend, which of these columns are categories being represented by numbers (nominal data), and which are actual counts (e.g., a count of people)? Explain why treating a category like Sex as if it were a quantity to average would be misleading.
+
+Answer: These categories are nominal and is represented by arbitrary code numbers. Treating a category like Sex as a quantity to average gives a mean of 1.86, which can be misleading because gender is a label not a measurement.
+
+Question #4:
+
+In subset-logical, if you filter on Sex == 1 using the raw numeric code rather than the word “Male”.
+Looking at the result, how could someone unfamiliar with the legend misinterpret this output?
+What problem does this illustrate about working with coded data before it has been labeled?
+
+Answers: Without the legend, someone seeing this output can guess it wrong and think that Sex == 1 means one person, or female instead of male. This proves that raw code numbers hide what your data actually means. That's why it's important if we label them with real worlds.
+
+Question #5: Out of 20 respondents, how many are Male (Sex == 1)? Compute this using nrow() on your filtered result from subset-logical or sum(survey$Sex == 1). Does this small sample size change how confident you would be generalizing any pattern you find in this dataset to a larger population? Explain your reasoning.
+
+Answers: There are 3 males  based on the survey. This small sample size makes me less confident in generalizing any patterns to a larger population, any trend we see easily result to a accidental occurrence rather than what is actually true for a whole city or country.
+
+Question #6: Run summary(). Every column shows numeric summary statistics (min, mean, max, etc.) – including Sex and TypesOfHouses, which are really categories, not quantities.
+Explain why R doesn’t know, by itself, that these columns are categorical, and what this tells you about the difference between how data is stored versus what it means.
+
+Answers: R doesn't know these columns are categories because we typed them in as plain numbers, so R just sees them as regular math values like integers. This shows the difference between the data stored versus the meaning of it. Storage is just how the computer saves the values in memory as numbers, while meaning is what those number actually represent in real life. Until we teach R what numbers mean like using factor(), it will just treat every number like something it can solve.
+
+Question #7: Compare the mean of PersonsAtHome to the mean of Sex in your summary output. Which of these two means is actually meaningful to report to someone, and which one is not? Justify your answer.
+
+Answers: The average for PersonsAtHome is 6.40 while the average for Sex is 1.85. PersonstAtHome measures the real count of people, so the average of it simply telles us that families about 6-7 people living at home on average. On the other hand, Sex is just a category coded with numbers, so calculating an average gives a meaningless result. For a category like Sex, it makes way more sense to report that 85% of the respondents are female instead of sharing a wrong average.
+
+
