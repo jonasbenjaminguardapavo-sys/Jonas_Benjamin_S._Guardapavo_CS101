@@ -17,14 +17,20 @@ Date: November 11, 2026
 v <- seq(5, 50, 5)
 
 c(length = length(v), sum = sum(v), mean = mean(v))
+```
 
+
+```{r}
 # A2
 
 w <- rep(c(1, 2, 3), 4)
 z <- rep(c(1, 2, 3), each = 4)
 w
 z
+```
 
+
+```{r}
 # A3 
 
 17 %% 5
@@ -32,7 +38,10 @@ z
 2^10
 sqrt(144)
 round(pi, 3)
+```
 
+
+```{r}
 # A4 
 
 a <- c(2, 4, 6, 8)
@@ -41,7 +50,10 @@ a + b
 a * b
 a > b
 sum(a * b)
+```
 
+
+```{r}
 # A5
 
 paste("Student", 1:3, sep = "-")
@@ -70,24 +82,36 @@ students <- data.frame(
 stringsAsFactors = FALSE
 )
 students
+```
 
+
+```{r}
 # B2 
 
 str(students)
 dim(students)
 colnames(students)
 summary(students)
+```
 
+
+```{r}
 # B3 
 
 students$average <- round((students$midterm + students$final) / 2, 1)
 students
+```
 
+
+```{r}
 # B4
 
 students$passed <- students$average >= 70 & students$attendance >= 75
 students
+```
 
+
+```{r}
 # B5 
 
 students$standing <- 
@@ -95,7 +119,10 @@ ifelse(students$average >= 90, "Honors",
 ifelse(students$average >= 75, "Good", "Needs Support"))
 
 students
+```
 
+
+```{r}
 # B6
 
 classify <- function(score) {
@@ -138,19 +165,28 @@ ifelse(new_students$average >= 75, "Good", "Needs Support"))
 
 students_all <- rbind(students, new_students)
 students_all
+```
 
+
+```{r}
 # C2
 
 quiz <- c(8, 7, 10, 6, 7, 9, 10, 5, 8, 6)
 students_all <- cbind(students_all, quiz)
 class(students_all)
+```
 
+
+```{r}
 # C3 
 
 m <- cbind(midterm = students_all$midterm, final = students_all$final)
 m <- rbind(m, mean = colMeans(m))
 m
+```
 
+
+```{r}
 # C4 
 
 bad <- data.frame(wrong_col = 1)
@@ -169,25 +205,40 @@ tryCatch(rbind(students, bad), error = function(e) { message("rbind failed: ", c
 students_all$name
 students_all[["name"]]
 students_all[, "name"]
+```
 
+
+```{r}
 # D2
 
 students_all[2:5, c("name", "midterm", "final")]
+```
 
+
+```{r}
 # D3
 
 students_all[students_all$attendance > 90, ]
+```
 
+
+```{r}
 # D4
 
 subset(students_all, sex == "F" & section %in% c("A", "C") & final >= 75, 
   select = c(name, section, final))
+```
 
+
+```{r}
 # D5 
 
 students_all$name[which.max(students_all$average)]
 students_all$name[which.min(students_all$average)]
+```
 
+
+```{r}
 # D6
 
 head(students_all[order(students_all$average, decreasing = TRUE), ], 3)
@@ -203,16 +254,25 @@ students_all$section <- factor(students_all$section)
 students_all$sex <- factor(students_all$sex)
 levels(students_all$section)
 levels(students_all$sex)
+```
 
+
+```{r}
 # E2
 
 table(students_all$sex, students_all$section)
+```
 
+
+```{r}
 # E3 
 
 as.integer(students_all$sex)
 # The integers represent the factors that are stored in categorical values since the levels are arranged alphabetically.
+```
 
+
+```{r}
 # E4 
 
 students_all$sex_label <- factor(
@@ -221,7 +281,10 @@ students_all$sex_label <- factor(
   labels = c("Female", "Male")
 )
 levels(students_all$sex_label)
+```
 
+
+```{r}
 # E5 
 
 summary(students_all$sex_label)
