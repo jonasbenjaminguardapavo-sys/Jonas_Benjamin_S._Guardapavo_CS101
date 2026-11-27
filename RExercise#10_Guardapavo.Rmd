@@ -1,0 +1,120 @@
+---
+title: "RExercise#10_Guardapavo"
+name: Jonas Benjamin S. Guardapavo
+output:
+  pdf_document: default
+  html_document: default
+---
+
+date: "2026-11-20"
+
+Part A — Predict the Output
+```{r}
+m <- matrix(1:6, nrow = 2)
+#a)
+apply(m, 1, sum)
+#b)
+apply(m, 2, sum)
+#c)
+class(lapply(1:3, function(i) i^2))
+#d)
+sapply(1:3, function(i) i^2)
+#e)
+sapply(c('a', 'bb', 'ccc'), nchar)
+#f)
+mapply(function(x, y) x * y, 1:3, 4:6)
+#g)
+tapply(c(10, 20, 30, 40), c('u', 'v', 'u', 'v'), sum)
+
+```
+Question #1 what is the output of each line? Explain briefly with your own words.
+The output of each line shows each of the rows m makes a grid of numbers from 1 to 6 with 2 rows, so (a) adds the numbers across each row to get 9 and 12, while (b) adds them down each column to get 3, 7, and 11. Next, (c) prints "list" because lapply always puts answers inside a list, (d) squares 1, 2, and 3 into a regular line of numbers (1 4 9), and (e) counts how many letters are in each word to get 1, 2, and 3. Finally, (f) multiplies the matching numbers from both lists together (1*4, 2*5, 3*6) to get 4 10 18, and (g) groups the numbers by 'u' and 'v' and adds them up to get 40 and 60.
+
+```{r}
+# Question #2:
+
+#Use this data for b.1 and b.2
+scores <- matrix(c(70, 85, 90,
+                   60, 75, 80,
+                   88, 92, 79),
+                 nrow = 3, byrow = TRUE,
+                 dimnames = list(c('Ana', 'Ben', 'Cara'), c('Math', 'Sci', 'Eng')))
+ 
+# b.1 Find (a) each student’s average, (b) each subject’s highest score, and (c) the name of the best subject for each student. Use apply function.
+temps <- list(Mon = c(30, 32, 31), Tue = c(29, 33), Wed = c(31, 34, 35, 30))
+# (a)
+apply(scores, 1, mean)
+# (b)
+apply(scores, 2, max)
+# (c)
+apply(scores, 1, function(x) names(which.max(x)))
+```
+b.2 For temps, compute the mean, the number of readings, and the range for each day. Use lapply() for one, sapply() for another, and vapply() for a third, and explain why the range result is a matrix.
+
+```{r}
+lapply(temps, mean)
+vapply(temps, length, integer(1))
+sapply(temps, range)
+
+# Explanation: Because the range function finds both the minimum and maximum, it gives back two numbers for each of the three days. Since every day returns the exact same amount of numbers, sapply automatically combines them into a neat 2 by 3 grid, with the rows showing the min and max and the columns showing the days.
+```
+
+```{r}
+# Question #3:
+
+principals <- c(1000, 2000)
+rates <- c(0.05, 0.04)
+terms <- c(2, 3)
+mapply(function(p, r, n) p * (1 + r)^n, principals, rates, terms)
+mapply(function(p, n, r) p * (1 + r)^n, principals, terms, MoreArgs = list(r = 0.045))
+```
+
+```{r}
+# Question #4:
+
+tapply(iris$Sepal.Length, iris$Species, mean)
+tapply(mtcars$mpg, list(mtcars$cyl, mtcars$am), length)
+tapply(mtcars$mpg, mtcars$cyl, mean, na.rm = TRUE)
+```
+
+Part A — Debugging
+
+```{r}
+# Question #5:
+# a.
+# sapply(list(a = 1:3, b = 4:6), mean(). There was an error while running the code. I learned that adding parentheses () calls mean() right away without any data instead of passing the function name to sapply().
+
+sapply(list(a = 1:3, b = 4:6), mean)
+# I fixed the code
+```
+
+```{r}
+# b.
+# expected one mean per column of a 3 x 2 matrix, got three numbers apply(matrix(1:6, nrow = 3), 1, mean)
+
+apply(matrix(1:6, nrow = 3), 1, mean)
+# Using 1 calculates the mean for each row instead of 2 for each column, if we use 2 then this will be the output.
+apply(matrix(1:6, nrow = 3), 2, mean)
+```
+
+```{r}
+# c. 
+# wanted the class of each column
+df <- data.frame(n = c(1, 2), s = c('a', 'b'))
+apply(df, 2, class)
+# Let's use 
+df <- data.frame(n = c(1, 2), s = c('a', 'b'))
+sapply(df, class)
+```
+
+
+# Question #6:
+a. Explain in your own words the difference between lapply() and sapply(). When would you choose vapply() instead?
+
+Answer: lapply() always gives you back a list, while sapply() tries to simplify the answer into a cleaner format like a vector, and you would choose vapply() when you want to make sure your code doesn't break by forcing the output to be a specific type.
+
+b. A colleague computes group means with lapply(split(x, g), mean). Which function gives the same result in one call, and what does it return?
+
+Answer: You can use tapply(x, g, mean) to do this in one step, and it gives you back an array (or simple vector) with the average for each group.
+
+
