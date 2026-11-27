@@ -2,8 +2,8 @@
 title: "RExercise#10_Guardapavo"
 name: Jonas Benjamin S. Guardapavo
 output:
-  pdf_document: default
   html_document: default
+  pdf_document: default
 ---
 
 date: "2026-11-20"
