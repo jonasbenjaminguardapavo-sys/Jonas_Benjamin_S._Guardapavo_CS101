@@ -73,8 +73,7 @@ mode(num_val)
 
 as.logical(0) 
 as.logical(1) 
-
-as.numeric(bad_string)
+as.numeric
 ```
 
 Question #5:
@@ -123,7 +122,7 @@ Answer:  Nope, there was no error, paste0() automatically changes numbers into w
 ```{r}
 # TODO: Predict, then test: what is the result of "5" + 5 in R?
 # Run it and read the error message carefully.
-"5" + 5
+5 + 5
 
 # TODO: Now fix the code above so that "5" + 5 correctly evaluates to 10
 # using an appropriate conversion function.

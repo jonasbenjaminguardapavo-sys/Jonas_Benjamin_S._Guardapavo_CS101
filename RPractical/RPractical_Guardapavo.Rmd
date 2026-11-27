@@ -1,7 +1,7 @@
 ---
 output:
-  pdf_document: default
   html_document: default
+  pdf_document: default
 ---
 R PROGRAMMING PRACTICAL EXAMINATION
 
@@ -268,7 +268,8 @@ table(students_all$sex, students_all$section)
 # E3 
 
 as.integer(students_all$sex)
-# The integers represent the factors that are stored in categorical values since the levels are arranged alphabetically.
+
+## The integers represent the factors that are stored in categorical values since the levels are arranged alphabetically.
 ```
 
 
